@@ -12,5 +12,6 @@ srf =  srf = cairo.ImageSurface(cairo.FORMAT_ARGB32, 600,400)
 cr = cairo.Context(srf)
 da = Gtk.DrawingArea()
 # help(GraphWidget.draw)
+# i have no idea what i'm doing
 # g.regenerate_surface()
 g.draw(cr,da)

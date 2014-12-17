@@ -19,5 +19,5 @@ with open("hipo_pl_ind.csv",'r') as file:
 j = numpy.argmax(l)
 # pos = radial_tree_layout(g)
 # graph_draw(g, pos=pos, output="graph_pl1.png", output_size=(6000,6000))
-os = fruchterman_reingold_layout(g, n_iter=10)
+pos = fruchterman_reingold_layout(g, n_iter=10)
 graph_draw(g, pos=pos)

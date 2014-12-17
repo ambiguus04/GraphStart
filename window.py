@@ -8,28 +8,25 @@ pos = sfdp_layout(g)
 white = [1,1,1,1]
 black = [0,0,0,1]
 value = g.new_vertex_property("vector<double>")
+txt = g.new_vertex_property("vector<string>")
 # help(GraphWindow)
 for v in g.vertices():
     value[v] = black # if value[v] = random.random() -> TypeError: 'float' object is not iterable ????
-win = GraphWindow(g, pos, geometry=(800,600), vertex_fill_color = value)
+    txt[v] = ""
+win = GraphWindow(g, pos, geometry=(800,600), vertex_text = txt, vertex_fill_color = white, vertex_halo = False, vertex_size = 20)
 win.set_title("nananan")
 picked = None
+index = g.new_vertex_property
 def change_values():
-    p=0.05
-    vs = list(g.vertices())
-    shuffle(vs)
-    for v in vs:
-        if random.random() < p:
-            if value[v] == white:
-                value[v] = black
-            else:
-                value[v] = white
-    win.graph.regenerate_surface(lazy=False)
-    win.graph.queue_draw()
     global picked
     if win.graph.picked is not None and win.graph.picked is not False and win.graph.picked is not picked:
-        print(win.graph.picked)
+        if picked is not None:
+            txt[picked] = ""
+        txt[win.graph.picked] = str(int(win.graph.picked)) ## argh, adding commas!
         picked = win.graph.picked
+    win.graph.regenerate_surface(lazy=False)
+    win.graph.queue_draw()
+
     return True
 def _motion_notify_event():
     global white
